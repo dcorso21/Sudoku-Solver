@@ -13,50 +13,59 @@ grid = [
     [0, 0, 0, 0, 8, 0, 0, 7, 9],
 ]
 
+def findCell(grid, x, y):
+    for yp in range(y,9):
+        if 0 in grid[yp]:
+            return (grid[yp].index(0), yp)
 
-def findNextCellToFill(grid, i, j):
-    for x in range(i, 9):
-        for y in range(j, 9):
-            if grid[x][y] == 0:
-                return x, y
-    for x in range(0, 9):
-        for y in range(0, 9):
-            if grid[x][y] == 0:
-                return x, y
+
+
+
+def findNextCellToFill(grid, x, y):
+    for xp in range(x, 9):
+        for yp in range(y, 9):
+            if grid[yp][xp] == 0:
+                return xp, yp
+    for xp in range(0, x):
+        for yp in range(0, y):
+            if grid[yp][xp] == 0:
+                return xp, yp
     return -1, -1
 
 
-def isValid(grid, i, j, e):
-    if all([e != grid[i][x] for x in range(9)]):
+def isValid(grid, x, y, n):
+    # Check if row doesnt have e as value yet
+    if n in grid[y]: 
         return False
-    if all([e != grid[y][j] for y in range(9)]):
+    if n in [grid[i][x] for i in range(9)]:
         return False
 
     # finding the top left x,y co-ordinates of the section containing the i,j cell
-    secTopX, secTopY = 3 * (i // 3), 3 * (
-        j // 3
-    )  # floored quotient should be used here.
-    for x in range(secTopX, secTopX + 3):
-        for y in range(secTopY, secTopY + 3):
-            if grid[x][y] == e:
-                return False
-    print("valid")
+    firstSquareX = (x//3)*3
+    firstSquareY = (y//3)*3
+
+    square = grid[firstSquareY][firstSquareX:firstSquareX+3]
+    square.extend(grid[firstSquareY+1][firstSquareX:firstSquareX+3])
+    square.extend(grid[firstSquareY+2][firstSquareX:firstSquareX+3])
+    if n in square:
+        return False
+    # print("valid")
     return True
 
 
-def solveSudoku(grid, i=0, j=0):
-    i, j = findNextCellToFill(grid, i, j)
-    print(i, j)
-    if i == -1:
+def solveSudoku(grid, x=0, y=0):
+    x, y = findNextCellToFill(grid, x, y)
+    # print(x, y)
+    if x == -1:
         return True
-    for e in range(1, 10):
+    for n in range(1, 10):
         # print('hello')
-        if isValid(grid, i, j, e):
-            grid[i][j] = e
-            if solveSudoku(grid, i, j):
-                return True
+        if isValid(grid, x, y, n):
+            grid[y][x] = n
+            if solveSudoku(grid, x, y) != False:
+                return grid
             # Undo the current cell for backtracking
-            grid[i][j] = 0
+            grid[y][x] = 0
     return False
 
 
@@ -71,4 +80,4 @@ input = [
     [7, 0, 3, 4, 0, 0, 5, 6, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
 ]
-print(np.matrix(solveSudoku(input)))
+# print(np.matrix(solveSudoku(input)))
