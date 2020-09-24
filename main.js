@@ -3,6 +3,7 @@ var sudoku2 = document.querySelector(".sudoku2");
 var updated = true;
 var solvedGrid = [];
 var entryGrid = [];
+// var xz, yz, nz;
 
 
 
@@ -47,6 +48,17 @@ class sudoku {
         i.setAttribute("placeholder", "1-9");
         f.appendChild(i);
 
+
+        function setValue(xz, yz, nz) {
+            // [xz, yz, nz] = [Number(sq.id[1]), Number(sq.id[4]), Number(e.target[0].value)]
+            if (s.possible(xz, yz, nz, entryGrid) || nz === 0){
+                nz = (nz===0)? " ": nz;
+                p.textContent = nz;
+            } else {
+                alert("Entry is not valid")
+            }
+        }
+
         sq.addEventListener("click", () => {
             if (!sq.contains(p)) {
                 return;
@@ -65,11 +77,8 @@ class sudoku {
                 return;
             }
             e.preventDefault();
-            if (console.log(s.possible(Number(sq.id[1]), Number(sq.id[4]), Number(e.target[0].value)))){
-                p.textContent = `${e.target[0].value}`;
-            } else {
-                alert("Entry is not valid")
-            }
+            let [xz, yz, nz] = [Number(sq.id[1]), Number(sq.id[4]), Number(e.target[0].value)]
+            setValue(xz,yz,nz);
             sq.appendChild(p);
             sq.removeChild(f);
             updated = true;
@@ -141,7 +150,7 @@ class solver {
         return sq;
     }
 
-    makeSolution(sudoku) {
+    displaySolution(sudoku) {
         removeAllChildNodes(sudoku);
         for (let row = 0; row < solvedGrid.length; row++) {
             for (let col = 0; col < 9; col++) {
@@ -151,21 +160,22 @@ class solver {
         return sudoku;
     }
 
-    possible(x, y, n) {
-        if (solvedGrid[y].includes(n)) {
+    possible(x, y, n, grid) {
+        if (grid[y].includes(n)) {
             return false;
         }
         for (let i = 0; i < 9; i++) {
-            if (solvedGrid[i][x] === n) {
+            if (grid[i][x] === n) {
                 return false;
             }
         }
         let x0 = Math.floor(x / 3) * 3,
             y0 = Math.floor(y / 3) * 3;
 
-        let sq = solvedGrid[y0].slice(x0, x0 + 3);
-        sq.concat(solvedGrid[y0 + 1].slice(x0, x0 + 3));
-        sq.concat(solvedGrid[y0 + 2].slice(x0, x0 + 3));
+        let sq = grid[y0].slice(x0, x0 + 3);
+        sq = sq.concat(grid[y0 + 1].slice(x0, x0 + 3));
+        sq = sq.concat(grid[y0 + 2].slice(x0, x0 + 3));
+        // console.log(sq);
         if (sq.includes(n)) {
             return false;
         }
@@ -177,7 +187,7 @@ class solver {
             if (solvedGrid[y].includes(0)) {
                 let x = solvedGrid[y].indexOf(0);
                 for (let n = 1; n < 10; n++) {
-                    if (this.possible(x, y, n)) {
+                    if (this.possible(x, y, n, solvedGrid)) {
                         solvedGrid[y][x] = n;
                         if (this.solve() != false) {
                             return solvedGrid;
@@ -195,11 +205,19 @@ class solver {
 const sdku = new sudoku();
 const s = new solver();
 sudoku1 = sdku.makeSquares(sudoku1);
+sdku.pullEntryGrid(sudoku1)
+
+function copyGrid(grid) {
+    let newGrid = [];
+    for (let y = 0; y < grid.length; y++){
+        newGrid.push(grid[y].slice())
+    }
+    return newGrid
+}
 
 function solveCurrent() {
-    solvedGrid = [...entryGrid]
     sdku.pullEntryGrid(sudoku1)
-    // console.log("unsolved", grid);
+    solvedGrid = copyGrid(entryGrid)
     s.solve();
-    s.makeSolution(sudoku2);
+    s.displaySolution(sudoku2);
 }
