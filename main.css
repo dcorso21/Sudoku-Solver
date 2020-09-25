@@ -4,23 +4,49 @@
 body {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
     font-size: 155%;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Montserrat', sans-serif;
     background-color: rgb(65, 65, 65);
     width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-image: url("assets/images/pawel-czerwinski-1KAVzUZcUwY-unsplash.jpg");
+    /* height: 100vh; */
+    background-image: url("assets/images/simon-berger-twukN12EN7c-unsplash.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     /* color: blanchedalmond; */
+    z-index: 1;
 }
 
-.main{
+.header{
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    margin: 2% 33%;
+    /* font-family: 'Lobster', cursive; */
+    font-weight: 300;
+    padding: 20px;
+    text-align: center;
+    font-size: 150%;
+    color: white;
+    background-color: rgba(27, 27, 27, 0.644);
+    -webkit-backdrop-filter: blur(14px);
+            backdrop-filter: blur(14px);
+    border-radius: 20px;
+    /* position: relative; */
+}
 
+
+.main{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
 }
 
 .sdk {
@@ -32,19 +58,27 @@ body {
     grid-template-rows: repeat(9, 1fr);
     grid-row-gap: 1px;
     grid-column-gap: 1px;
-    align-items: center;
-    justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     padding: 40px 40px;
     margin: 10px 10px;
-    border-radius: 15%;
+    border-radius: 10%;
+    border-color: 2px solid white;
     background-color: rgba(94, 94, 94, 0.493);
-    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(14px);
+            backdrop-filter: blur(14px);
 
 }
 
+.sudoku2 .square{
+    cursor: initial;
+}
+
 .square, input {
-    /* justify-content: center; */
-    /* align-self: center; */
     border-radius: 30%;
     width: 50px;
     height: 50px;
@@ -56,14 +90,27 @@ body {
 }
 
 .square, input{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     cursor: pointer;
     border: none;
     color: white;
     font-size: 100%;
     /* box-shadow: none; */
+}
+
+input::-moz-selection{
+    background-color: beige;
+    color: aqua;
+    /* text-decoration: none; */
+    border: none;
 }
 
 input::selection{
@@ -73,5 +120,23 @@ input::selection{
     border: none;
 }
 
+.menu {
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(14px);
+    z-index: 900;
+    /* background-color: rgba(0, 0, 0, 0.623); */
+}
+
+.menu h1{
+    position: absolute;
+    z-index: 900;
+    background-color: black;
+}
 
 
