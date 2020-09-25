@@ -1,11 +1,18 @@
 var sudoku1 = document.querySelector(".sudoku1");
 var sudoku2 = document.querySelector(".sudoku2");
+var menu = document.querySelector(".menu");
 var updated = true;
 var solvedGrid = [];
 var entryGrid = [];
-// var xz, yz, nz;
 
+const sdku = new sudoku();
+const s = new solver();
+sudoku1 = sdku.makeSquares(sudoku1);
+sdku.pullEntryGrid(sudoku1)
 
+menu.addEventListener("click", () => {
+    menu.style.animation = "mymove 4s 2";
+})
 
 //  Found https://www.javascripttutorial.net/dom/manipulating/remove-all-child-nodes/
 function removeAllChildNodes(parent) {
@@ -14,16 +21,31 @@ function removeAllChildNodes(parent) {
     }
 }
 
-function oddSquare(x,y) {
-    let topBottom = [0,1,2,6,7,8]
-    let middle = [3,4,5]
-    if (topBottom.includes(x) && topBottom.includes(y)){
+function oddSquare(x, y) {
+    let topBottom = [0, 1, 2, 6, 7, 8]
+    let middle = [3, 4, 5]
+    if (topBottom.includes(x) && topBottom.includes(y)) {
         return true
     }
-    if (middle.includes(x) && middle.includes(y)){
+    if (middle.includes(x) && middle.includes(y)) {
         return true
     }
     return false
+}
+
+function copyGrid(grid) {
+    let newGrid = [];
+    for (let y = 0; y < grid.length; y++) {
+        newGrid.push(grid[y].slice())
+    }
+    return newGrid
+}
+
+function solveCurrent() {
+    sdku.pullEntryGrid(sudoku1)
+    solvedGrid = copyGrid(entryGrid)
+    s.solve();
+    s.displaySolution(sudoku2);
 }
 
 class sudoku {
@@ -37,7 +59,7 @@ class sudoku {
         sq = document.createElement("div");
         sq.setAttribute("id", `(${x}, ${y})`);
         let cl = "square";
-        cl = oddSquare(x, y) ? cl + " emphasis": cl;
+        cl = oddSquare(x, y) ? cl + " emphasis" : cl;
         sq.setAttribute("class", cl);
         p = document.createElement("p");
         p.textContent = " ";
@@ -51,8 +73,8 @@ class sudoku {
 
         function setValue(xz, yz, nz) {
             // [xz, yz, nz] = [Number(sq.id[1]), Number(sq.id[4]), Number(e.target[0].value)]
-            if (s.possible(xz, yz, nz, entryGrid) || nz === 0){
-                nz = (nz===0)? " ": nz;
+            if (s.possible(xz, yz, nz, entryGrid) || nz === 0) {
+                nz = (nz === 0) ? " " : nz;
                 p.textContent = nz;
             } else {
                 alert("Entry is not valid")
@@ -78,15 +100,15 @@ class sudoku {
             }
             e.preventDefault();
             let [xz, yz, nz] = [Number(sq.id[1]), Number(sq.id[4]), Number(e.target[0].value)]
-            setValue(xz,yz,nz);
+            setValue(xz, yz, nz);
             sq.appendChild(p);
             sq.removeChild(f);
             updated = true;
             solveCurrent()
         });
-        
+
         f.addEventListener("focusout", (e) => {
-            if (sq.contains(p)){return;}
+            if (sq.contains(p)) { return; }
             let val = e.target.value;
             // if (s.possible(sq.id[1], sq.id[4], e.target[0].value)){
             //     p.textContent = `${e.target[0].value}`;
@@ -142,7 +164,7 @@ class solver {
         sq = document.createElement("div");
         sq.setAttribute("id", `s(${x}, ${y})`);
         let cl = "square";
-        cl = oddSquare(x, y) ? cl + " emphasis": cl;
+        cl = oddSquare(x, y) ? cl + " emphasis" : cl;
         sq.setAttribute("class", cl);
         p = document.createElement("p");
         p.textContent = solvedGrid[y][x];
@@ -200,24 +222,4 @@ class solver {
         }
         return solvedGrid;
     }
-}
-
-const sdku = new sudoku();
-const s = new solver();
-sudoku1 = sdku.makeSquares(sudoku1);
-sdku.pullEntryGrid(sudoku1)
-
-function copyGrid(grid) {
-    let newGrid = [];
-    for (let y = 0; y < grid.length; y++){
-        newGrid.push(grid[y].slice())
-    }
-    return newGrid
-}
-
-function solveCurrent() {
-    sdku.pullEntryGrid(sudoku1)
-    solvedGrid = copyGrid(entryGrid)
-    s.solve();
-    s.displaySolution(sudoku2);
 }
