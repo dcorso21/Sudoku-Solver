@@ -13,7 +13,13 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-image: url("assets/images/pawel-czerwinski-1KAVzUZcUwY-unsplash.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
     /* color: blanchedalmond; */
+}
+
+.main{
 
 }
 
@@ -28,21 +34,25 @@ body {
     grid-column-gap: 1px;
     align-items: center;
     justify-content: center;
-    margin: 40px 40px;
+    padding: 40px 40px;
+    margin: 10px 10px;
+    border-radius: 15%;
+    background-color: rgba(94, 94, 94, 0.493);
+    backdrop-filter: blur(18px);
+
 }
 
 .square, input {
     /* justify-content: center; */
     /* align-self: center; */
-    border-radius: 50%;
+    border-radius: 30%;
     width: 50px;
     height: 50px;
-    /* height:  */
-    background-color: rgb(95, 96, 97);
+    background-color: rgba(255, 255, 255, 0.404);
 }
 
 .emphasis{
-    background-color: rgb(37, 47, 78);
+    background-color: rgba(0, 0, 0, 0.288);
 }
 
 .square, input{
@@ -50,6 +60,17 @@ body {
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    border: none;
+    color: white;
+    font-size: 100%;
+    /* box-shadow: none; */
+}
+
+input::selection{
+    background-color: beige;
+    color: aqua;
+    /* text-decoration: none; */
+    border: none;
 }
 
 
