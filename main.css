@@ -37,6 +37,8 @@ body {
     -webkit-backdrop-filter: blur(14px);
     backdrop-filter: blur(14px);
     border-radius: 20px;
+    -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.226);
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.226);
     /* position: relative; */
 }
 
@@ -74,7 +76,8 @@ body {
     background-color: rgba(94, 94, 94, 0.493);
     -webkit-backdrop-filter: blur(14px);
     backdrop-filter: blur(14px);
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.226);
+    -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.226);
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.226);
 }
 
 .sudoku2 .square {
@@ -87,13 +90,18 @@ input {
     width: 40px;
     height: 40px;
     background-color: rgba(255, 255, 255, 0.404);
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.11);
+    -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.11);
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.11);
+    -webkit-transition: all .3s;
+    -o-transition: all .3s;
     transition: all .3s;
 }
 
 .square:hover{
     background-color: rgba(255, 255, 255, 0.274);
-    transform: scale(1.05);
+    -webkit-transform: scale(1.05);
+        -ms-transform: scale(1.05);
+            transform: scale(1.05);
 }
 
 .emphasis {
@@ -226,7 +234,8 @@ input::selection {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    justify-content: space-around;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
@@ -244,6 +253,8 @@ input::selection {
     -webkit-transition: all .3s;
     -o-transition: all .3s;
     transition: all .3s;
+    -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.226);
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.226);
 }
 
 .reset, .hide{
