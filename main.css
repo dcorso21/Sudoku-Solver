@@ -74,6 +74,7 @@ body {
     background-color: rgba(94, 94, 94, 0.493);
     -webkit-backdrop-filter: blur(14px);
     backdrop-filter: blur(14px);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.226);
 }
 
 .sudoku2 .square {
@@ -86,11 +87,25 @@ input {
     width: 40px;
     height: 40px;
     background-color: rgba(255, 255, 255, 0.404);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.11);
+    transition: all .3s;
+}
+
+.square:hover{
+    background-color: rgba(255, 255, 255, 0.274);
+    transform: scale(1.05);
 }
 
 .emphasis {
     background-color: rgba(0, 0, 0, 0.288);
 }
+
+.emphasis:hover{
+    background-color: rgba(0, 0, 0, 0.192);
+}
+
+
+
 
 .square,
 input {
@@ -139,45 +154,14 @@ input::selection {
     /* margin-right: 20px; */
 }
 
-
-
-/* .menu {
-    position: absolute;
-    top: 10%;
-    left: 10%;
-    height: 80vh;
-    width: 80vw;
-    overflow: hidden;
-    color: white;
-    border-radius: 30px;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    z-index: 99;
-    -webkit-backdrop-filter: blur(14px);
-            backdrop-filter: blur(14px);
-    background-color: rgba(0, 0, 0, 0.808);
-    transform: scale(.001);
-    display: none;
-} */
 .menu {
     /* display: none; */
     position: absolute;
     /* opacity: 0; */
-    top: 10%;
-    left: 10%;
-    height: 80vh;
-    width: 80vw;
+    top: 7.5%;
+    left: 7.5%;
+    height: 85vh;
+    width: 85vw;
     overflow: hidden;
     color: white;
     border-radius: 30px;
@@ -199,19 +183,25 @@ input::selection {
     -webkit-backdrop-filter: blur(14px);
             backdrop-filter: blur(14px);
     background-color: rgba(0, 0, 0, 0.808);
-    transform: scale(.001);
+    -webkit-transform: scale(.001);
+        -ms-transform: scale(.001);
+            transform: scale(.001);
     /* opacity: 0; */
     display: none;
 }
 
 .animate{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    /* opacity: 100; */
-    /* transform: scale(1); */
-    animation-name: menuzoom;
-    animation-duration: .9s;
-    animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
-    animation-fill-mode: both;
+    -webkit-animation-name: menuzoom;
+            animation-name: menuzoom;
+    -webkit-animation-duration: .9s;
+            animation-duration: .9s;
+    -webkit-animation-timing-function: cubic-bezier(.49,-0.11,0,1.28);
+            animation-timing-function: cubic-bezier(.49,-0.11,0,1.28);
+    -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
 
 }
 
@@ -224,15 +214,22 @@ input::selection {
 .menu p {
     position: relative;
     width: 80%;
-    font-kerning: auto;
+    -webkit-font-kerning: auto;
+            font-kerning: auto;
+    font-style: italic;
     font-weight: 100;
 }
 
 
 .interact {
+    margin: 0 24%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-around;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
 }
 
 .interact .btn {
@@ -244,18 +241,32 @@ input::selection {
     border-radius: 20px;
     margin: 20px;
     padding: 10px;
-    transition: background-color .3s;
+    -webkit-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s;
+}
+
+.reset, .hide{
+    /* transform: scale(.75); */
+    font-style: italic;
+    font-size: 90%;
+    font-weight: 100;
 }
 
 .btn:hover{
     background-color: rgba(65, 65, 65, 0.644);
     cursor: pointer;
+    -webkit-transform: scale(1.2);
+        -ms-transform: scale(1.2);
+            transform: scale(1.2);
 }
 
 .backbtn{
     margin-top: 20px;
     font-size: 80%;
     border-bottom: 1px solid white;
+    -webkit-transition: all .3s ;
+    -o-transition: all .3s ;
     transition: all .3s ;
 }
 
@@ -263,14 +274,31 @@ input::selection {
     color: rgba(114, 51, 75, 0.952);
     border-bottom: 1px solid rgb(114, 51, 75, 0.952);
     cursor: pointer;
+    -webkit-transform: scale(1.1);
+        -ms-transform: scale(1.1);
+            transform: scale(1.1);
+}
+
+
+@-webkit-keyframes menuzoom{
+    from{
+        -webkit-transform: scale(.001) rotate(90deg);
+                transform: scale(.001) rotate(90deg);
+    }
+    to{
+        -webkit-transform: scale(1);
+                transform: scale(1);
+    }
 }
 
 
 @keyframes menuzoom{
     from{
-        transform: scale(.001);
+        -webkit-transform: scale(.001) rotate(90deg);
+                transform: scale(.001) rotate(90deg);
     }
     to{
-        transform: scale(1);
+        -webkit-transform: scale(1);
+                transform: scale(1);
     }
 }
